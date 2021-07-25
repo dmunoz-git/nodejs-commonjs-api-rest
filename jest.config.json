@@ -1,0 +1,6 @@
+{
+    "name": "node-commonjs-rest-api",
+    "jest": {
+        "verbose": true
+    }
+}
