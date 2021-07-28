@@ -38,7 +38,12 @@ app.use("/books", bookRoutes);
 
 // App running
 const port = process.env.PORT || 3000;
-app.listen(port, (err) => {
+const server = app.listen(port, (err) => {
     if (err) return console.log("Error on server init: ", err.message);
     console.log(`Server running on port ${port}`);
 });
+
+module.exports = {
+    app,
+    server,
+};

@@ -4,13 +4,13 @@ const bookCtrl = require("../controllers/books.controllers");
 const router = express.Router();
 
 // Route 'books/new' with POST method
-router.post("/new", bookCtrl.createBook);
+router.post("/", bookCtrl.createBook);
 
 // Route 'books/xxxx-xxxx-xxxx with GET method'
 router.get("/:isbn", bookCtrl.getBook);
 
 // Route 'books' with GET method
-router.get("", bookCtrl.listBooks);
+router.get("/", bookCtrl.listBooks);
 
 // Route 'books/xxxx-xxxx-xxxx' with PUT method
 router.put("/:isbn", bookCtrl.updateBook);
