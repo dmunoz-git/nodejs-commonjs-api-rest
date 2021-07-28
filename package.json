@@ -4,12 +4,12 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "prod": "node ./src/index.js",
-        "dev": "nodemon ./src/index.js",
+        "prod": "cross-env NODE_ENV=production node ./src/index.js",
+        "dev": "cross-env NODE_ENV=development nodemon ./src/index.js",
         "lint": "lint ./src/index.js",
         "lint:fix": "lint --fix ./src/index.js",
-        "test": "jest",
-        "test:watch": "jest --watch"
+        "test": "cross-env NODE_ENV=test jest  --verbose --silent --detectOpenHandles",
+        "test:watch": "npm run test -- --watch"
     },
     "keywords": [],
     "author": "",
@@ -17,6 +17,7 @@
     "dependencies": {
         "bcrypt": "^5.0.1",
         "cors": "^2.8.5",
+        "cross-env": "^7.0.3",
         "express": "^4.17.1",
         "helmet": "^4.6.0",
         "mongoose": "^5.13.3",
