@@ -1,7 +1,7 @@
 const User = require("../models/user.model");
 
 const updateUser = (req, res) => {
-    User.updateOne({ isbn: req.body.isbn })
+    User.updateOne({ email: req.body.email })
         .then((user) => {
             res.status(201).send(user);
         })
@@ -9,7 +9,7 @@ const updateUser = (req, res) => {
 };
 
 const deleteUser = (req, res) => {
-    User.removeOne({ isbn: req.body.isbn })
+    User.removeOne({ email: req.body.email })
         .then((user) => {
             res.status(201).send(user);
         })
