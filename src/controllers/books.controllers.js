@@ -1,7 +1,7 @@
 const Book = require("../models/book.model");
 
-const createBook = async (req, res) => {
-    await Book.findOne({ isbn: req.body.isbn })
+const createBook = (req, res) => {
+    Book.findOne({ isbn: req.body.isbn })
         .then((book) => {
             if (book) {
                 res.status(409).send({ message: "This book already exist" });
@@ -16,8 +16,8 @@ const createBook = async (req, res) => {
         .catch(() => res.status(500).send({ message: "Internal error server" }));
 };
 
-const getBook = async (req, res) => {
-    await Book.findOne({ isbn: req.params.isbn })
+const getBook = (req, res) => {
+    Book.findOne({ isbn: req.params.isbn })
         .then((book) => {
             if (book) {
                 res.status(201).send(book);
@@ -28,8 +28,8 @@ const getBook = async (req, res) => {
         .catch(() => res.status(500).send({ message: "Internal error server" }));
 };
 
-const listBooks = async (req, res) => {
-    await Book.find()
+const listBooks = (req, res) => {
+    Book.find()
         .then((books) => {
             if (books.length > 0) {
                 res.status(201).send(books);
@@ -42,8 +42,8 @@ const listBooks = async (req, res) => {
         .catch(() => res.status(500).send({ message: "Internal error server" }));
 };
 
-const updateBook = async (req, res) => {
-    await Book.updateOne({ isbn: req.params.isbn }, req.body)
+const updateBook = (req, res) => {
+    Book.updateOne({ isbn: req.params.isbn }, req.body)
         .then((book) => {
             if (book) {
                 res.status(201).send(book);
@@ -54,8 +54,8 @@ const updateBook = async (req, res) => {
         .catch(() => res.status(500).send({ message: "Internal error server" }));
 };
 
-const deleteBook = async (req, res) => {
-    await Book.deleteOne({ isbn: req.params.isbn })
+const deleteBook = (req, res) => {
+    Book.deleteOne({ isbn: req.params.isbn })
         .then(() => {
             res.status(201).send({ message: "The book was deleted" });
         })

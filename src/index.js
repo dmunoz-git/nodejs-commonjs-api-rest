@@ -6,7 +6,8 @@ const helmet = require("helmet");
 const mongoose = require("mongoose");
 
 const bookRoutes = require("./routes/book.routes");
-
+const authRoutes = require("./routes/auth.routes");
+const userRoutes = require("./routes/user.routes");
 // App
 const app = express();
 
@@ -35,6 +36,8 @@ app.use(morgan("dev"));
 
 // Route prefixes
 app.use("/books", bookRoutes);
+app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
 
 // App running
 const port = process.env.PORT || 3000;
