@@ -24,7 +24,6 @@ mongoose
     .catch((err) => {
         console.error("Database connection returned error: ", err.message);
     });
-
 // Middlewares
 app.use(cors());
 app.use(helmet());
@@ -41,6 +40,8 @@ app.use("/user", userRoutes);
 
 // App running
 const port = process.env.PORT || 3000;
+
+// eslint-disable-next-line consistent-return
 const server = app.listen(port, (err) => {
     if (err) return console.log("Error on server init: ", err.message);
     console.log(`Server running on port ${port}`);
