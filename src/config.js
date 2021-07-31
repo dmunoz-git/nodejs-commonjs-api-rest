@@ -4,4 +4,16 @@ module.exports = {
     database: {
         mongoURL: process.env.MONGODB_TEST || process.env.MONGODB_DEV || "mongodb://localhost:27017/api-books",
     },
+
+    auth: {
+        access: {
+            secret: "secret",
+            expiresIn: "1h",
+        },
+
+        refresh: {
+            secret: "secret",
+            expiresIn: "24h",
+        },
+    },
 };
