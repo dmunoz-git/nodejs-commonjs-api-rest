@@ -50,6 +50,6 @@ userSchema.set("toJSON", {
     },
 });
 
-userSchema.statics.comparePassword = (password) => bcrypt.compare(password, this.password);
+userSchema.statics.comparePassword = (password, hash) => bcrypt.compare(password, hash);
 
 module.exports = mongoose.model("User", userSchema);
