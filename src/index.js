@@ -8,12 +8,15 @@ const mongoose = require("mongoose");
 const bookRoutes = require("./routes/book.routes");
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
+
+const config = require("./config");
+
 // App
 const app = express();
 
 // DB connection
 mongoose
-    .connect(process.env.MONGODB_URL || "mongodb://localhost:27017/api-books", {
+    .connect(config.database.mongoURL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
@@ -39,7 +42,7 @@ app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 
 // App running
-const port = process.env.PORT || 3000;
+const port = config.nodePort;
 
 // eslint-disable-next-line consistent-return
 const server = app.listen(port, (err) => {
