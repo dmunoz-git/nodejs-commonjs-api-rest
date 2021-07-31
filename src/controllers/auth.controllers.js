@@ -1,4 +1,6 @@
 const User = require("../models/user.model");
+const jwt = require("jsonwebtoken");
+const config = require("../config");
 
 const signUp = (req, res) => {
     User.findOne({ email: req.body.email }).then((user) => {
@@ -22,7 +24,15 @@ const signIn = (req, res) => {
             if (user) {
                 User.comparePassword(req.body.password, user.password).then((match) => {
                     if (match) {
-                        res.status(201).send({ message: "You're log it!" });
+                        const refreshToken = jwt.sign({ email: user.email }, config.auth.refresh.secret, {
+                            expiresIn: config.auth.refresh.expiresIn,
+                        });
+
+                        const accessToken = jwt.sign({}, config.auth.access.secret, {
+                            expiresIn: config.auth.access.expiresIn,
+                        });
+
+                        res.status(201).send({ refreshToken: refreshToken, accesToken: accessToken });
                     } else {
                         res.status(401).send({ message: "User not authorizated" });
                     }
@@ -35,4 +45,19 @@ const signIn = (req, res) => {
             res.status(500).send({ message: "Internal server error" }), console.log(error);
         });
 };
-module.exports = { signUp, signIn };
+
+const refreshAccessToken = (req, res) => {
+    if (req.body.refreshToken) {
+        jwt.verify(req.body.refreshToken, config.auth.refresh.secret, (err, decoded) => {
+            if (decoded) {
+                const accessToken = jwt.sign({}, config.auth.access.secret, {
+                    expiresIn: config.auth.access.expiresIn,
+                });
+                res.status(201).send({ accessToken: accessToken });
+            } else {
+                res.status(400).send({ message: "The token is not valid or is expired" });
+            }
+        });
+    }
+};
+module.exports = { signUp, signIn, refreshAccessToken };
