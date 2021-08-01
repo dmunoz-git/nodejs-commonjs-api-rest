@@ -1,10 +1,11 @@
 const express = require("express");
 const bookCtrl = require("../controllers/books.controllers");
+const authMiddle = require("../middlewares/auth.middlewares");
 
 const router = express.Router();
 
 // Route 'books/new' with POST method
-router.post("/", bookCtrl.createBook);
+router.post("/", authMiddle.verifyAuth, bookCtrl.createBook);
 
 // Route 'books/xxxx-xxxx-xxxx with GET method'
 router.get("/:isbn", bookCtrl.getBook);
@@ -13,9 +14,9 @@ router.get("/:isbn", bookCtrl.getBook);
 router.get("/", bookCtrl.listBooks);
 
 // Route 'books/xxxx-xxxx-xxxx' with PUT method
-router.put("/:isbn", bookCtrl.updateBook);
+router.put("/:isbn", authMiddle.verifyAuth, bookCtrl.updateBook);
 
 // Route 'books/xxxx-xxxx-xxxx' with DELETE method
-router.delete("/:isbn", bookCtrl.deleteBook);
+router.delete("/:isbn", authMiddle.verifyAuth, bookCtrl.deleteBook);
 
 module.exports = router;
