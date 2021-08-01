@@ -12,7 +12,7 @@ module.exports = {
         },
 
         refresh: {
-            secret: "secret",
+            secret: "Secret2",
             expiresIn: "24h",
         },
     },
