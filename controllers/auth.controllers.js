@@ -24,12 +24,12 @@ const signIn = (req, res) => {
             if (user) {
                 User.comparePassword(req.body.password, user.password).then((match) => {
                     if (match) {
-                        const refreshToken = jwt.sign({ email: user.email }, config.auth.refresh.secret, {
-                            expiresIn: config.auth.refresh.expiresIn,
+                        const refreshToken = jwt.sign({ email: user.email }, config.auth.refreshTokenKey, {
+                            expiresIn: config.auth.refreshTokenExpiresIn,
                         });
 
-                        const accessToken = jwt.sign({}, config.auth.access.secret, {
-                            expiresIn: config.auth.access.expiresIn,
+                        const accessToken = jwt.sign({}, config.auth.accessTokenKey, {
+                            expiresIn: config.auth.accesTokenExpiresIn,
                         });
 
                         res.status(201).send({ refreshToken: refreshToken, accesToken: accessToken });
@@ -48,10 +48,10 @@ const signIn = (req, res) => {
 
 const refreshAccessToken = (req, res) => {
     if (req.body.refreshToken) {
-        jwt.verify(req.body.refreshToken, config.auth.refresh.secret, (err, decoded) => {
+        jwt.verify(req.body.refreshToken, config.auth.refreshTokenKey, (err, decoded) => {
             if (decoded) {
-                const accessToken = jwt.sign({}, config.auth.access.secret, {
-                    expiresIn: config.auth.access.expiresIn,
+                const accessToken = jwt.sign({}, config.auth.accessTokenKey, {
+                    expiresIn: config.auth.accesTokenExpiresIn,
                 });
                 res.status(201).send({ accessToken: accessToken });
             } else {
