@@ -7,4 +7,22 @@ module.exports = {
         accesTokenExpiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN || "1h",
         refreshTokenExpiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN || "24h",
     },
+
+    swaggerSpecs: {
+        definition: {
+            openapi: "3.0.0",
+            info: {
+                title: "API Book",
+                version: "1.0.0",
+                description: "A simple express book complete API Rest",
+            },
+            servers: [
+                {
+                    url: "http://localhost:3000",
+                },
+            ],
+        },
+
+        apis: ["./routes/*.js"],
+    },
 };
