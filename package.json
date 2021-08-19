@@ -6,8 +6,8 @@
     "scripts": {
         "prod": "cross-env NODE_ENV=production node ./index.js",
         "dev": "cross-env NODE_ENV=development nodemon ./index.js",
-        "lint": "lint ./index.js",
-        "lint:fix": "lint --fix ./index.js",
+        "lint": "eslint ./index.js",
+        "lint:fix": "eslint --fix ./index.js",
         "test": "cross-env NODE_ENV=test jest  --verbose --silent --detectOpenHandles",
         "test:watch": "npm run test -- --watch"
     },

@@ -53,7 +53,7 @@ const refreshAccessToken = (req, res) => {
                 const accessToken = jwt.sign({}, config.auth.accessTokenKey, {
                     expiresIn: config.auth.accesTokenExpiresIn,
                 });
-                res.status(201).send({ accessToken: accessToken });
+                res.status(201).send({ accessToken });
             } else {
                 res.status(400).send({ message: "The token is not valid or is expired" });
             }

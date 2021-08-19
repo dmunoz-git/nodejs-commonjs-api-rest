@@ -5,13 +5,10 @@ const cors = require("cors");
 const helmet = require("helmet");
 const swaggerUI = require("swagger-UI-express");
 const mongoose = require("mongoose");
-const YAML = require("yamljs");
 
 const bookRoutes = require("./routes/book.routes");
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
-
-const swaggerDocument = YAML.load("./doc/swagger.yaml");
 
 const config = require("./config");
 
@@ -41,7 +38,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
 // Route prefixes
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(config.swaggerSpecs));
 app.use("/books", bookRoutes);
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
