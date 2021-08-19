@@ -11,6 +11,7 @@ const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
 
 const config = require("./config");
+const swaggerJSDoc = require("swagger-jsdoc");
 
 // App
 const app = express();
@@ -37,8 +38,11 @@ app.use(express.urlencoded({ extended: true }));
 // Utils
 app.use(morgan("dev"));
 
+// Swagger
+const specs = swaggerJSDoc(config.swaggerSpecs);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
+
 // Route prefixes
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(config.swaggerSpecs));
 app.use("/books", bookRoutes);
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
