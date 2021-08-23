@@ -4,6 +4,28 @@ const authMiddle = require("../middlewares/auth.middlewares");
 
 const router = express.Router();
 
+/**
+ * @swagger
+ *  components:
+ *     schemas:
+ *         Book:
+ *           type: object
+ *           properties:
+ *             id:
+ *              type: integer
+ *              format: int64
+ *              description: unique identifier
+ *             title:
+ *              type: string
+ *              description: The book's title
+ *             isbn:
+ *              type: number
+ *              description: The book's isbn
+ *             author:
+ *              type: string
+ *              description: The book's author
+ */
+
 // Route 'books/new' with POST method
 router.post("/", authMiddle.verifyAuth, bookCtrl.createBook);
 

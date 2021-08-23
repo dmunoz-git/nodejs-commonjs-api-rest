@@ -5,53 +5,6 @@ const router = express.Router();
 
 /**
  * @swagger
- *  components:
- *     schemas:
- *         User:
- *           type: object
- *           properties:
- *             id:
- *               type: integer
- *               format: int64
- *               description: unique identifier
- *             name:
- *              type: string
- *              description: The user's name
- *             secondName:
- *              type: string
- *              description: The user's second name
- *             email:
- *              type: string
- *              description: The user's email
- *             password:
- *              type: string
- *              description: The user's password
- *           example:
- *             name: John
- *             secondName: Doe
- *             email: jhon.doe@mail.com
- *             password: 123456
- *
- *         Book:
- *           type: object
- *           properties:
- *             id:
- *              type: integer
- *              format: int64
- *              description: unique identifier
- *             title:
- *              type: string
- *              description: The book's title
- *             isbn:
- *              type: number
- *              description: The book's isbn
- *             author:
- *              type: string
- *              description: The book's author
- */
-
-/**
- * @swagger
  *   tags:
  *    name: Auth
  *    description: Authentication routes
@@ -73,11 +26,25 @@ const router = express.Router();
  *    responses:
  *      '201':
  *        description: If successful, returns the new user
+ *        content:
+ *         application/json:
+ *          schema:
+ *          type: object
+ *          properties:
+ *           name:
+ *            type: string
+ *           secondName:
+ *            type: string
+ *           email:
+ *            type: string
+ *          example:
+ *           name: "Jhon"
+ *           secondName: "Doe"
+ *           email: "jhon.doe@mail.com"
  *      '400':
- *        description: User already exists or invalid input
+ *        description: User already exists or bad request
  *      '500':
  *        description: Internal server error
- *
  */
 router.post("/signup", authCtrl.signUp);
 
@@ -91,14 +58,34 @@ router.post("/signup", authCtrl.signUp);
  *     description: Pass the user's credentials
  *     content:
  *      application/json:
- *       schema:
- *        $ref: '#/components/schemas/User'
- *
+ *        schema:
+ *         type: object
+ *         properties:
+ *          email:
+ *           type: string
+ *          password:
+ *           type: string
+ *        example:
+ *         email: "jhon.doe@mail.com"
+ *         password: "123456"
  *    responses:
  *      '201':
- *        description: If successful, returns the new user
+ *        description: If successful, returns the user tokens
+ *        content:
+ *         application/json:
+ *          schema:
+ *           type: object
+ *           properties:
+ *            refreshToken:
+ *             type: string
+ *            accessToken:
+ *             type: string
+ *          example:
+ *           refreshToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImphbWVzLmdvcmRvbkBtYWlsLmNvbSIsImlhdCI6MTYyOTc0MTU4NywiZXhwIjoxNjI5ODI3OTg3fQ.1fe1xixlVoO3eJTLLMUo9PR9cU-TPXdGsZSAODRMcck"
+ *           accesToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk3NDE1ODcsImV4cCI6MTYyOTc0NTE4N30.SuWFz9Mes6wAErDvCorV0RjTZ2EwE1YgZtdYao5Vjgw"
+ *
  *      '400':
- *        description: User already exists or invalid input
+ *        description: User doesn't exist or bad request
  *      '500':
  *        description: Internal server error
  *
@@ -111,21 +98,40 @@ router.post("/signin", authCtrl.signIn);
  *   post:
  *    summary: Refresh a user's token
  *    tags: [Auth]
+ *    parameters:
+ *     - in: header
+ *       name: Authorization
+ *       schema:
+ *        type: string
+ *       required: true
+ *       description: Refresh token
  *    requestBody:
  *     description: Refresh token is needed
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/components/schemas/User'
- *
+ *        type: object
+ *        properties:
+ *         refreshToken:
+ *          type: string
+ *        example:
+ *          refreshToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImphbWVzLmdvcmRvbkBtYWlsLmNvbSIsImlhdCI6MTYyOTc0MTU4NywiZXhwIjoxNjI5ODI3OTg3fQ.1fe1xixlVoO3eJTLLMUo9PR9cU-TPXdGsZSAODRMcck"
  *    responses:
  *      '201':
  *        description: If successful, returns the new user
+ *        content:
+ *         application/json:
+ *          schema:
+ *           type: object
+ *           properties:
+ *            accessToken:
+ *             type: string
+ *           example:
+ *            accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImphbWVzLmdvcmRvbkBtYWlsLmNvbSIsImlhdCI6MTYyOTc0MTU4NywiZXhwIjoxNjI5ODI3OTg3fQ.1fe1xixlVoO3eJTLLMUo9PR9cU-TPXdGsZSAODRMcck"
  *      '400':
- *        description: User already exists or invalid input
+ *        description: Invalid token or bad request
  *      '500':
  *        description: Internal server error
- *
  */
 router.post("/refresh", authCtrl.refreshAccessToken);
 module.exports = router;
