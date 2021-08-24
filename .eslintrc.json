@@ -19,8 +19,7 @@
             }
         ],
         "linebreak-style": ["error", "unix"],
-        "consistent-return": "warn",
-        "no-underscore-dangle": ["allow", ["_id", "__v"]]
+        "consistent-return": "warn"
     },
     "plugins": ["prettier"]
 }
