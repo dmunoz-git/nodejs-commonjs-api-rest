@@ -8,7 +8,10 @@ const bookSchema = new mongoose.Schema({
         type: Number,
         unique: true,
     },
-    image: String,
+    addedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    },
 });
 
 bookSchema.set("toJSON", {
