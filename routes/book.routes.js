@@ -46,6 +46,10 @@ const router = express.Router();
  *   summary: Create a book
  *   security:
  *    - bearerAuth: []
+ *   parameters:
+ *    - in: header
+ *      name: Authorization
+ *      description: Access token
  *   requestBody:
  *    description: Book object
  *    content:
@@ -127,7 +131,11 @@ router.get("/", bookCtrl.listBooks);
  *  put:
  *   tags: [Book]
  *   summary: Update a book
+ *   security:
+ *    - bearerAuth: []
  *   parameters:
+ *    - in: header
+ *      name: Authorization
  *    - in: path
  *      name: isbn
  *   responses:
@@ -148,7 +156,11 @@ router.put("/:isbn", authMiddle.verifyAuth, bookCtrl.updateBook);
  *  delete:
  *   tags: [Book]
  *   summary: Delete a book
+ *   security:
+ *    - bearerAuth: []
  *   parameters:
+ *    - in: header
+ *      name: Authorization
  *    - in: path
  *      name: isbn
  *   responses:

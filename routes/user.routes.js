@@ -46,12 +46,16 @@ const router = express.Router();
  *  put:
  *   tags: [User]
  *   summary: Update user
+ *   security:
+ *    - bearerAuth: []
  *   parameters:
- *   - in: path
- *     name: id
- *     schema:
- *      type: integer
- *      description: User unique identifier
+ *    - in: header
+ *      name: Authorization
+ *    - in: path
+ *      name: id
+ *      schema:
+ *       type: integer
+ *       description: User unique identifier
  *   responses:
  *    201:
  *     description: Return the user with the modified fields
@@ -68,7 +72,11 @@ router.put("/:idUser", userCtrl.updateUser);
  *  delete:
  *   tags: [User]
  *   summary: Delete user
+ *   security:
+ *    - bearerAuth: []
  *   parameters:
+ *   - in: header
+ *     name: Authorization
  *   - in: path
  *     name: id
  *     schema:
