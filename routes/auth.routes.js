@@ -106,13 +106,6 @@ router.post("/signin", authCtrl.signIn);
  *   post:
  *    summary: Refresh a user's token
  *    tags: [Auth]
- *    parameters:
- *     - in: header
- *       name: Authorization
- *       schema:
- *        type: string
- *       required: true
- *       description: Refresh token
  *    requestBody:
  *     description: Refresh token is needed
  *     content:
