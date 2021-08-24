@@ -9,12 +9,14 @@ const createBook = (req, res) => {
             } else {
                 const createdBook = new Book(req.body);
 
-                createdBook
-                    .save()
-                    .then((newBook) => res.status(201).send(newBook))
-                    .catch(() => res.status(500).send({ message: "Internal error server" }));
-
                 User.findById(res.locals.userId).then((user) => {
+                    createdBook.addedBy = res.locals.userId;
+
+                    createdBook
+                        .save()
+                        .then((newBook) => res.status(201).send(newBook))
+                        .catch(() => res.status(500).send({ message: "Internal error server" }));
+
                     user.books.push(createdBook);
                     user.save();
                 });
