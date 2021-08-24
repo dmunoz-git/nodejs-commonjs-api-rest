@@ -2,6 +2,14 @@ const express = require("express");
 const authCtrl = require("../controllers/auth.controllers");
 
 const router = express.Router();
+/**
+ * @swagger
+ * securitySchemes:
+ *   bearerAuth:
+ *    type: http
+ *    scheme: bearer
+ *    bearerFormat: JWT
+ */
 
 /**
  * @swagger
