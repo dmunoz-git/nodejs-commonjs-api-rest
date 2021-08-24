@@ -31,23 +31,6 @@ const router = express.Router();
  *             secondName: Doe
  *             email: jhon.doe@mail.com
  *             password: 123456
- *
- *         Book:
- *           type: object
- *           properties:
- *             id:
- *              type: integer
- *              format: int64
- *              description: unique identifier
- *             title:
- *              type: string
- *              description: The book's title
- *             isbn:
- *              type: number
- *              description: The book's isbn
- *             author:
- *              type: string
- *              description: The book's author
  */
 
 /**
@@ -56,21 +39,22 @@ const router = express.Router();
  *    name: User
  *    description: User routes
  */
+
 /**
  * @swagger
  * /user/{id}:
  *  put:
  *   tags: [User]
  *   summary: Update user
- *   requestBody:
- *    description: User object
- *    content:
- *      application/json:
- *       schema:
- *        $ref: '#/components/schemas/User'
+ *   parameters:
+ *   - in: path
+ *     name: id
+ *     schema:
+ *      type: integer
+ *      description: User unique identifier
  *   responses:
  *    201:
- *     description: User updated
+ *     description: Return the user with the modified fields
  *    400:
  *     description: Bad request
  *    500:
@@ -78,6 +62,26 @@ const router = express.Router();
  */
 router.put("/:idUser", userCtrl.updateUser);
 
+/**
+ * @swagger
+ * /user/{id}:
+ *  delete:
+ *   tags: [User]
+ *   summary: Delete user
+ *   parameters:
+ *   - in: path
+ *     name: id
+ *     schema:
+ *      type: integer
+ *      description: User unique identifier
+ *   responses:
+ *    201:
+ *     description: User removed
+ *    400:
+ *     description: Bad request
+ *    500:
+ *     description: Internal server error
+ */
 router.delete("/:idDelete", userCtrl.deleteUser);
 
 module.exports = router;
