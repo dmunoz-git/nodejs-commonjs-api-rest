@@ -100,22 +100,6 @@ router.get("/:isbn", bookCtrl.getBook);
  *   responses:
  *    201:
  *     description: Return the book list
- *     content:
- *      application/json:
- *      schema:
- *       type: array
- *       items:
- *        type: object
- *        properties:
- *         id:
- *          type: integer
- *         name:
- *          type: string
- *       example:
- *        - id: 10
- *          name: Jessica Smith
- *        - id: 20
- *          name: Ron Stewart
  *    400:
  *     description: Bad request
  *    404:
