@@ -8,7 +8,7 @@ const bookSchema = new mongoose.Schema({
         type: Number,
         unique: true,
     },
-    image: String,
+    addedBy: String,
 });
 
 bookSchema.set("toJSON", {
