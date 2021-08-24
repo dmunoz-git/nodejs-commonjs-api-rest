@@ -8,7 +8,7 @@ const bookSchema = new mongoose.Schema({
         type: Number,
         unique: true,
     },
-    addedBy: mongoose.Schema.Types.ObjectId,
+    addedBy: String,
 });
 
 bookSchema.set("toJSON", {
