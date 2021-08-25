@@ -50,7 +50,7 @@ const refreshAccessToken = (req, res) => {
     if (req.body.refreshToken) {
         jwt.verify(req.body.refreshToken, config.auth.refreshTokenKey, (err, decoded) => {
             if (decoded) {
-                const accessToken = jwt.sign({}, config.auth.accessTokenKey, {
+                const accessToken = jwt.sign({ id: decoded.id }, config.auth.accessTokenKey, {
                     expiresIn: config.auth.accesTokenExpiresIn,
                 });
                 res.status(201).send({ accessToken });
