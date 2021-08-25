@@ -19,7 +19,16 @@
             }
         ],
         "linebreak-style": ["error", "unix"],
-        "consistent-return": "warn"
+        "consistent-return": "warn",
+        "no-underscore-dangle": "off"
     },
+    "overrides": [
+        {
+            "files": ["**/*.test.js"],
+            "env": {
+                "jest": true
+            }
+        }
+    ],
     "plugins": ["prettier"]
 }
