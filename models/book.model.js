@@ -10,6 +10,7 @@ const bookSchema = new mongoose.Schema({
         min: 10,
         max: 13,
     },
+    addedBy: String,
 });
 
 bookSchema.set("toJSON", {

@@ -1,4 +1,5 @@
 const Book = require("../models/book.model");
+const User = require("../models/user.model");
 
 const createBook = (req, res) => {
     Book.findOne({ isbn: req.body.isbn })
@@ -7,13 +8,21 @@ const createBook = (req, res) => {
                 res.status(409).send({ message: "This book already exist" });
             } else {
                 const createdBook = new Book(req.body);
-                createdBook
-                    .save()
-                    .then((newBook) => res.status(201).send(newBook))
-                    .catch(() => res.status(500).send({ message: "Internal error server" }));
+
+                User.findById(res.locals.userId).then((user) => {
+                    createdBook.addedBy = res.locals.userId;
+
+                    createdBook
+                        .save()
+                        .then((newBook) => res.status(201).send(newBook))
+                        .catch(() => res.status(500).send({ message: "Internal error server" }));
+
+                    user.books.push(createdBook);
+                    user.save();
+                });
             }
         })
-        .catch(() => res.status(500).send({ message: "Internal error server" }));
+        .catch((error) => res.status(500).send({ message: "Internal error server", error: error }));
 };
 
 const getBook = (req, res) => {
