@@ -7,8 +7,9 @@ const bookSchema = new mongoose.Schema({
     isbn: {
         type: Number,
         unique: true,
+        min: 10,
+        max: 13,
     },
-    image: String,
 });
 
 bookSchema.set("toJSON", {

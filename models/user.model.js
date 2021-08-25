@@ -14,10 +14,22 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
+        validate: {
+            validator: (v) =>
+                new Promise((resolve, reject) => {
+                    resolve(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(v));
+                }),
+        },
     },
     password: {
         type: String,
         required: true,
+        validate: {
+            validator: (v) =>
+                new Promise((resolve, reject) => {
+                    resolve(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/.test(v));
+                }),
+        },
     },
 });
 
