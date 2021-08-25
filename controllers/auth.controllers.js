@@ -24,15 +24,15 @@ const signIn = (req, res) => {
             if (user) {
                 User.comparePassword(req.body.password, user.password).then((match) => {
                     if (match) {
-                        const refreshToken = jwt.sign({ email: user.email }, config.auth.refreshTokenKey, {
+                        const refreshToken = jwt.sign({ id: user._id }, config.auth.refreshTokenKey, {
                             expiresIn: config.auth.refreshTokenExpiresIn,
                         });
 
-                        const accessToken = jwt.sign({}, config.auth.accessTokenKey, {
+                        const accesToken = jwt.sign({ id: user._id }, config.auth.accessTokenKey, {
                             expiresIn: config.auth.accesTokenExpiresIn,
                         });
 
-                        res.status(201).send({ refreshToken: refreshToken, accesToken: accessToken });
+                        res.status(201).send({ refreshToken, accesToken });
                     } else {
                         res.status(401).send({ message: "User not authorizated" });
                     }
