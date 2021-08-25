@@ -70,6 +70,19 @@ describe("Testing auth services", () => {
             })
             .expect(201);
     });
+
+    test("A user cannot sign up with invalid password", async () => {
+        const res = await api
+            .post("/auth/signup")
+            .send({
+                name: "test3",
+                secondName: "test3",
+                email: "test3@mail",
+                password: "Sup3rTest2!",
+            })
+            .expect(400);
+        expect(res.body.message).toContain("Invalid" || "invalid");
+    });
 });
 
 afterAll(() => {

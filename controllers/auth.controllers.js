@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 const User = require("../models/user.model");
 const config = require("../config");
 
@@ -13,7 +14,11 @@ const signUp = (req, res) => {
                 .then((savedUser) => {
                     res.status(201).send(savedUser);
                 })
-                .catch(() => res.status(500).send({ message: "Internal server error" }));
+                .catch((err) =>
+                    err instanceof mongoose.Error.ValidationError
+                        ? res.status(400).send({ message: `Invalid email or password format` })
+                        : res.status(500).send({ message: "Internal server error" })
+                );
         }
     });
 };
