@@ -16,7 +16,7 @@ const signUp = (req, res) => {
                 })
                 .catch((err) =>
                     err instanceof mongoose.Error.ValidationError
-                        ? res.status(400).send({ message: `Invalid email or password format` })
+                        ? res.status(400).send({ message: "Bad body format" })
                         : res.status(500).send({ message: "Internal server error" })
                 );
         }
@@ -46,9 +46,7 @@ const signIn = (req, res) => {
                 res.status(404).send({ message: "User not found" });
             }
         })
-        .catch((error) => {
-            res.status(500).send({ message: "Internal server error" }), console.log(error);
-        });
+        .catch(() => res.status(500).send({ message: "Internal server error" }));
 };
 
 const refreshAccessToken = (req, res) => {

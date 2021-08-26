@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const mongoose = require("mongoose");
 
 const bookSchema = new mongoose.Schema({
@@ -7,8 +8,8 @@ const bookSchema = new mongoose.Schema({
     isbn: {
         type: Number,
         unique: true,
-        min: 10,
-        max: 13,
+        minLength: 10,
+        maxLength: 13,
     },
     addedBy: String,
 });

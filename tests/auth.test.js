@@ -71,7 +71,7 @@ describe("Testing auth services", () => {
             .expect(201);
     });
 
-    test("A user cannot sign up with invalid password", async () => {
+    test("A user cannot sign up with invalid email or password format", async () => {
         const res = await api
             .post("/auth/signup")
             .send({
@@ -85,7 +85,8 @@ describe("Testing auth services", () => {
     });
 });
 
-afterAll(() => {
+afterAll(async () => {
+    await User.deleteMany({});
     server.close();
     mongoose.connection.close();
 });
