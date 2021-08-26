@@ -3,6 +3,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
+// eslint-disable-next-line import/no-unresolved
 const swaggerUI = require("swagger-UI-express");
 const mongoose = require("mongoose");
 
@@ -10,8 +11,13 @@ const swaggerJSDoc = require("swagger-jsdoc");
 const bookRoutes = require("./routes/book.routes");
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
-
 const config = require("./config");
+
+// Loading environment variables
+if (process.env.NODE_ENV !== "production") {
+    // eslint-disable-next-line global-require
+    require("dotenv").config();
+}
 
 // App
 const app = express();
@@ -56,6 +62,8 @@ const server = app.listen(port, (err) => {
     if (err) return console.log("Error on server init: ", err.message);
     console.log(`Server running on port ${port}`);
 });
+
+console.error(process.env.MONGO_URL_DEV);
 
 module.exports = {
     app,
