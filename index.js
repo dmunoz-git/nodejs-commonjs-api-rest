@@ -63,8 +63,6 @@ const server = app.listen(port, (err) => {
     console.log(`Server running on port ${port}`);
 });
 
-console.error(process.env.MONGO_URL_DEV);
-
 module.exports = {
     app,
     server,

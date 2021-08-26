@@ -29,12 +29,13 @@ const signIn = (req, res) => {
             if (user) {
                 User.comparePassword(req.body.password, user.password).then((match) => {
                     if (match) {
+                        console.log(config.auth.refreshTokenExpiresIn);
                         const refreshToken = jwt.sign({ id: user._id }, config.auth.refreshTokenKey, {
                             expiresIn: config.auth.refreshTokenExpiresIn,
                         });
 
                         const accessToken = jwt.sign({ id: user._id }, config.auth.accessTokenKey, {
-                            expiresIn: config.auth.accesTokenExpiresIn,
+                            expiresIn: config.auth.accessTokenExpiresIn,
                         });
 
                         res.status(201).send({ refreshToken, accessToken });
@@ -54,7 +55,7 @@ const refreshAccessToken = (req, res) => {
         jwt.verify(req.body.refreshToken, config.auth.refreshTokenKey, (err, decoded) => {
             if (decoded) {
                 const accessToken = jwt.sign({ id: decoded.id }, config.auth.accessTokenKey, {
-                    expiresIn: config.auth.accesTokenExpiresIn,
+                    expiresIn: config.auth.accessTokenExpiresIn,
                 });
                 res.status(201).send({ accessToken });
             } else {

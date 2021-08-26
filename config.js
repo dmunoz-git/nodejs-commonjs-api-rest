@@ -6,8 +6,8 @@ module.exports = {
     auth: {
         accessTokenKey: process.env.ACCESS_TOKEN_KEY || "secret",
         refreshTokenKey: process.env.REFRESH_TOKEN_KEY || "secret2",
-        accesTokenExpiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN || "1h",
-        refreshTokenExpiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN || "24h",
+        accessTokenExpiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN,
+        refreshTokenExpiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN,
     },
 
     swaggerSpecs: {
