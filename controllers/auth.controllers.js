@@ -6,7 +6,7 @@ const config = require("../config");
 const signUp = (req, res) => {
     User.findOne({ email: req.body.email }).then((user) => {
         if (user) {
-            res.status(400).send({ message: "User already exists" });
+            res.status(409).send({ message: "User already exists" });
         } else {
             const userNew = new User(req.body);
             userNew
@@ -29,7 +29,6 @@ const signIn = (req, res) => {
             if (user) {
                 User.comparePassword(req.body.password, user.password).then((match) => {
                     if (match) {
-                        console.log(config.auth.refreshTokenExpiresIn);
                         const refreshToken = jwt.sign({ id: user._id }, config.auth.refreshTokenKey, {
                             expiresIn: config.auth.refreshTokenExpiresIn,
                         });

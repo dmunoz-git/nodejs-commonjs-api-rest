@@ -83,6 +83,22 @@ describe("Testing auth services", () => {
             .expect(400);
         expect(res.body.message).toBe("Bad body format");
     });
+
+    test("A user cannot sign up with a invalid request", async () => {
+        await api.post("/auth/signup").send({}).expect(400);
+    });
+
+    test("A user cannot sign up if its account alredy exists", async () => {
+        await api
+            .post("/auth/signup")
+            .send({
+                name: "test",
+                secondName: "test",
+                email: "test@mail.com",
+                password: "Sup3rTest!",
+            })
+            .expect(409);
+    });
 });
 
 afterAll(async () => {
