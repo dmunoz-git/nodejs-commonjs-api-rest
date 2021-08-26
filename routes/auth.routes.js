@@ -75,7 +75,7 @@ router.post("/signup", authCtrl.signUp);
  *           type: string
  *        example:
  *         email: "jhon.doe@mail.com"
- *         password: "123456"
+ *         password: "JhonDoe45!"
  *    responses:
  *      '201':
  *        description: If successful, returns the user tokens
@@ -89,8 +89,8 @@ router.post("/signup", authCtrl.signUp);
  *            accessToken:
  *             type: string
  *          example:
- *           refreshToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImphbWVzLmdvcmRvbkBtYWlsLmNvbSIsImlhdCI6MTYyOTc0MTU4NywiZXhwIjoxNjI5ODI3OTg3fQ.1fe1xixlVoO3eJTLLMUo9PR9cU-TPXdGsZSAODRMcck"
- *           accesToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mjk3NDE1ODcsImV4cCI6MTYyOTc0NTE4N30.SuWFz9Mes6wAErDvCorV0RjTZ2EwE1YgZtdYao5Vjgw"
+ *           refreshToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjYwNjk3OGIxNzEyMWY1YzI3MmQwMSIsImlhdCI6MTYyOTg4MjAyMCwiZXhwIjoxNjI5OTY4NDIwfQ.iDnLR6rOBfx95XMjfWqHFhwAUrRSbjkA74MxensPNys"
+ *           accesToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjYwNjk3OGIxNzEyMWY1YzI3MmQwMSIsImlhdCI6MTYyOTg4MjAyMCwiZXhwIjoxNjI5ODg1NjIwfQ.bYY60CMXHAVFpbdAV4EN3cSj5b052NKGOfIvRiOB-wc"
  *
  *      '400':
  *        description: User doesn't exist or bad request
@@ -116,7 +116,7 @@ router.post("/signin", authCtrl.signIn);
  *         refreshToken:
  *          type: string
  *        example:
- *          refreshToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImphbWVzLmdvcmRvbkBtYWlsLmNvbSIsImlhdCI6MTYyOTc0MTU4NywiZXhwIjoxNjI5ODI3OTg3fQ.1fe1xixlVoO3eJTLLMUo9PR9cU-TPXdGsZSAODRMcck"
+ *          refreshToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjYwNjk3OGIxNzEyMWY1YzI3MmQwMSIsImlhdCI6MTYyOTg4MjAyMCwiZXhwIjoxNjI5OTY4NDIwfQ.iDnLR6rOBfx95XMjfWqHFhwAUrRSbjkA74MxensPNys"
  *    responses:
  *      '201':
  *        description: If successful, returns the new user
@@ -128,7 +128,7 @@ router.post("/signin", authCtrl.signIn);
  *            accessToken:
  *             type: string
  *           example:
- *            accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImphbWVzLmdvcmRvbkBtYWlsLmNvbSIsImlhdCI6MTYyOTc0MTU4NywiZXhwIjoxNjI5ODI3OTg3fQ.1fe1xixlVoO3eJTLLMUo9PR9cU-TPXdGsZSAODRMcck"
+ *            accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjYwNjk3OGIxNzEyMWY1YzI3MmQwMSIsImlhdCI6MTYyOTg4MjAyMCwiZXhwIjoxNjI5ODg1NjIwfQ.bYY60CMXHAVFpbdAV4EN3cSj5b052NKGOfIvRiOB-wc"
  *      '400':
  *        description: Invalid token or bad request
  *      '500':
