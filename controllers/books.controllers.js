@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const Book = require("../models/book.model");
 const User = require("../models/user.model");
 
@@ -14,15 +15,20 @@ const createBook = (req, res) => {
 
                     createdBook
                         .save()
-                        .then((newBook) => res.status(201).send(newBook))
-                        .catch(() => res.status(500).send({ message: "Internal error server" }));
-
-                    user.books.push(createdBook);
-                    user.save();
+                        .then((newBook) => {
+                            user.books.push(createdBook);
+                            user.save();
+                            res.status(201).send(newBook);
+                        })
+                        .catch((error) =>
+                            error instanceof mongoose.Error.ValidationError
+                                ? res.status(400).send({ message: "Bad body format" })
+                                : res.status(500).send({ message: "Internal error server" })
+                        );
                 });
             }
         })
-        .catch((error) => res.status(500).send({ message: "Internal error server", error: error }));
+        .catch(() => res.status(500).send({ message: "Internal error server" }));
 };
 
 const getBook = (req, res) => {
@@ -31,7 +37,7 @@ const getBook = (req, res) => {
             if (book) {
                 res.status(201).send(book);
             } else {
-                res.status(409).send({ message: "Book not found" });
+                res.status(404).send({ message: "Book not found" });
             }
         })
         .catch(() => res.status(500).send({ message: "Internal error server" }));

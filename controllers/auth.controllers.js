@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 const User = require("../models/user.model");
 const config = require("../config");
 
@@ -13,7 +14,11 @@ const signUp = (req, res) => {
                 .then((savedUser) => {
                     res.status(201).send(savedUser);
                 })
-                .then(() => res.status(500).send({ message: "Internal server error" }));
+                .catch((err) =>
+                    err instanceof mongoose.Error.ValidationError
+                        ? res.status(400).send({ message: "Bad body format" })
+                        : res.status(500).send({ message: "Internal server error" })
+                );
         }
     });
 };
@@ -28,11 +33,11 @@ const signIn = (req, res) => {
                             expiresIn: config.auth.refreshTokenExpiresIn,
                         });
 
-                        const accesToken = jwt.sign({ id: user._id }, config.auth.accessTokenKey, {
+                        const accessToken = jwt.sign({ id: user._id }, config.auth.accessTokenKey, {
                             expiresIn: config.auth.accesTokenExpiresIn,
                         });
 
-                        res.status(201).send({ refreshToken, accesToken });
+                        res.status(201).send({ refreshToken, accessToken });
                     } else {
                         res.status(401).send({ message: "User not authorizated" });
                     }
@@ -41,16 +46,14 @@ const signIn = (req, res) => {
                 res.status(404).send({ message: "User not found" });
             }
         })
-        .catch((error) => {
-            res.status(500).send({ message: "Internal server error" }), console.log(error);
-        });
+        .catch(() => res.status(500).send({ message: "Internal server error" }));
 };
 
 const refreshAccessToken = (req, res) => {
     if (req.body.refreshToken) {
         jwt.verify(req.body.refreshToken, config.auth.refreshTokenKey, (err, decoded) => {
             if (decoded) {
-                const accessToken = jwt.sign({}, config.auth.accessTokenKey, {
+                const accessToken = jwt.sign({ id: decoded.id }, config.auth.accessTokenKey, {
                     expiresIn: config.auth.accesTokenExpiresIn,
                 });
                 res.status(201).send({ accessToken });
