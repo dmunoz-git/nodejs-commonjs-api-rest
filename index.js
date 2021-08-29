@@ -3,15 +3,21 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
-const swaggerUI = require("swagger-UI-express");
+// eslint-disable-next-line import/no-unresolved
+const swaggerUI = require("swagger-ui-express");
 const mongoose = require("mongoose");
 
 const swaggerJSDoc = require("swagger-jsdoc");
 const bookRoutes = require("./routes/book.routes");
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
-
 const config = require("./config");
+
+// Loading environment variables
+if (process.env.NODE_ENV !== "production") {
+    // eslint-disable-next-line global-require
+    require("dotenv").config();
+}
 
 // App
 const app = express();

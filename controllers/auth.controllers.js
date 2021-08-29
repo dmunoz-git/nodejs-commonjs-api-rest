@@ -6,7 +6,7 @@ const config = require("../config");
 const signUp = (req, res) => {
     User.findOne({ email: req.body.email }).then((user) => {
         if (user) {
-            res.status(400).send({ message: "User already exists" });
+            res.status(409).send({ message: "User already exists" });
         } else {
             const userNew = new User(req.body);
             userNew
@@ -34,7 +34,7 @@ const signIn = (req, res) => {
                         });
 
                         const accessToken = jwt.sign({ id: user._id }, config.auth.accessTokenKey, {
-                            expiresIn: config.auth.accesTokenExpiresIn,
+                            expiresIn: config.auth.accessTokenExpiresIn,
                         });
 
                         res.status(201).send({ refreshToken, accessToken });
@@ -43,7 +43,7 @@ const signIn = (req, res) => {
                     }
                 });
             } else {
-                res.status(404).send({ message: "User not found" });
+                res.status(409).send({ message: "User not found" });
             }
         })
         .catch(() => res.status(500).send({ message: "Internal server error" }));
@@ -54,7 +54,7 @@ const refreshAccessToken = (req, res) => {
         jwt.verify(req.body.refreshToken, config.auth.refreshTokenKey, (err, decoded) => {
             if (decoded) {
                 const accessToken = jwt.sign({ id: decoded.id }, config.auth.accessTokenKey, {
-                    expiresIn: config.auth.accesTokenExpiresIn,
+                    expiresIn: config.auth.accessTokenExpiresIn,
                 });
                 res.status(201).send({ accessToken });
             } else {
