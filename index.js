@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
 // eslint-disable-next-line import/no-unresolved
-const swaggerUI = require("swagger-UI-express");
+const swaggerUI = require("swagger-ui-express");
 const mongoose = require("mongoose");
 
 const swaggerJSDoc = require("swagger-jsdoc");
