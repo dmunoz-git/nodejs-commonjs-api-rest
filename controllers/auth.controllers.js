@@ -43,7 +43,7 @@ const signIn = (req, res) => {
                     }
                 });
             } else {
-                res.status(404).send({ message: "User not found" });
+                res.status(409).send({ message: "User not found" });
             }
         })
         .catch(() => res.status(500).send({ message: "Internal server error" }));

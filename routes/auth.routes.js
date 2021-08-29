@@ -49,6 +49,8 @@ const router = express.Router();
  *           name: "Jhon"
  *           secondName: "Doe"
  *           email: "jhon.doe@mail.com"
+ *      '409':
+ *        description: If the email is already in use
  *      '400':
  *        description: User already exists or bad request
  *      '500':
@@ -92,8 +94,10 @@ router.post("/signup", authCtrl.signUp);
  *           refreshToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjYwNjk3OGIxNzEyMWY1YzI3MmQwMSIsImlhdCI6MTYyOTg4MjAyMCwiZXhwIjoxNjI5OTY4NDIwfQ.iDnLR6rOBfx95XMjfWqHFhwAUrRSbjkA74MxensPNys"
  *           accesToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjYwNjk3OGIxNzEyMWY1YzI3MmQwMSIsImlhdCI6MTYyOTg4MjAyMCwiZXhwIjoxNjI5ODg1NjIwfQ.bYY60CMXHAVFpbdAV4EN3cSj5b052NKGOfIvRiOB-wc"
  *
- *      '400':
- *        description: User doesn't exist or bad request
+ *      '401':
+ *        description: If the user credentials are incorrect
+ *      '409':
+ *        description: User doesn't exist
  *      '500':
  *        description: Internal server error
  *
@@ -129,8 +133,8 @@ router.post("/signin", authCtrl.signIn);
  *             type: string
  *           example:
  *            accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjYwNjk3OGIxNzEyMWY1YzI3MmQwMSIsImlhdCI6MTYyOTg4MjAyMCwiZXhwIjoxNjI5ODg1NjIwfQ.bYY60CMXHAVFpbdAV4EN3cSj5b052NKGOfIvRiOB-wc"
- *      '400':
- *        description: Invalid token or bad request
+ *      '401':
+ *          description: The refresh token is invalid
  *      '500':
  *        description: Internal server error
  */
