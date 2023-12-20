@@ -1,0 +1,23 @@
+
+services:
+  web:
+    container_name: api-books
+    restart: always
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - database
+    volumes:
+      - .:/opt/app
+  database:
+    container_name: mongodb 
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+volumes:
+  mongodata:
+
+  
