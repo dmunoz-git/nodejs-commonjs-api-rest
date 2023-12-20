@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
         unique: true,
         validate: {
             validator: (v) =>
-                new Promise((resolve, reject) => {
+                new Promise((resolve) => {
                     resolve(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(v));
                 }),
         },
@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         validate: {
             validator: (v) =>
-                new Promise((resolve, reject) => {
+                new Promise((resolve) => {
                     resolve(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/.test(v));
                 }),
         },

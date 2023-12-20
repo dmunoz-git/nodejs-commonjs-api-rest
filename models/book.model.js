@@ -6,10 +6,15 @@ const bookSchema = new mongoose.Schema({
     title: String,
     description: String,
     isbn: {
-        type: Number,
+        type: String,
+        required: true,
         unique: true,
-        minLength: 10,
-        maxLength: 13,
+        validate: {
+            validator: (v) =>
+                new Promise((resolve) => {
+                    resolve(/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/.test(v));
+                }),
+        },
     },
     addedBy: String,
 });
