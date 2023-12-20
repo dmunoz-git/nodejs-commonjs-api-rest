@@ -81,7 +81,7 @@ describe("Testing auth services", () => {
                 password: "Sup3rTest2!",
             })
             .expect(400);
-        expect(res.body.message).toContain("Invalid" || "invalid");
+        expect(res.body.message).toContain("Bad body format");
     });
 });
 
