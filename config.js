@@ -1,13 +1,11 @@
-require("dotenv").config();
-
 module.exports = {
     nodePort: process.env.PORT || 3000,
-    mongoURL: process.env.NODE_ENV === "test" ? process.env.MONGO_URL_TEST : process.env.MONGO_URL_DEV,
+    mongoURL: process.env.MONGODB_TEST || process.env.MONGODB_DEV || "mongodb://mongodb:27017/api-books",
     auth: {
         accessTokenKey: process.env.ACCESS_TOKEN_KEY || "secret",
         refreshTokenKey: process.env.REFRESH_TOKEN_KEY || "secret2",
-        accessTokenExpiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN,
-        refreshTokenExpiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN,
+        accesTokenExpiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN || "1h",
+        refreshTokenExpiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN || "24h",
     },
 
     swaggerSpecs: {
@@ -23,6 +21,16 @@ module.exports = {
                     url: "http://localhost:3000",
                 },
             ],
+            components: {
+                securitySchemes: {
+                    TokenHeader: {
+                        type: "apiKey",
+                        in: "header",
+                        name: "Authorization",
+                        description: "Authentification token. Add your token directly in the request header.",
+                    },
+                },
+            },
         },
 
         apis: ["./routes/*.js"],
