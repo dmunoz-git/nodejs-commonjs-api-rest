@@ -1,5 +1,6 @@
 const express = require("express");
 const userCtrl = require("../controllers/user.controllers");
+const authMiddle = require("../middlewares/auth.middlewares");
 
 const router = express.Router();
 
@@ -43,6 +44,32 @@ const router = express.Router();
 /**
  * @swagger
  * /user/{id}:
+ *  get:
+ *   tags: [User]
+ *   summary: Get user details
+ *   security:
+ *    - TokenHeader: []
+ *   parameters:
+ *    - in: path
+ *      name: id
+ *      schema:
+ *       type: string
+ *       description: User unique identifier
+ *   responses:
+ *    201:
+ *     description: Return the user with the modified fields
+ *    404:
+ *     description: User not found
+ *    400:
+ *     description: Bad request
+ *    500:
+ *     description: Internal server error
+ */
+router.get("/:idUser", userCtrl.getUser);
+
+/**
+ * @swagger
+ * /user/{id}:
  *  put:
  *   tags: [User]
  *   summary: Update user
@@ -52,7 +79,7 @@ const router = express.Router();
  *    - in: path
  *      name: id
  *      schema:
- *       type: integer
+ *       type: string
  *       description: User unique identifier
  *   responses:
  *    201:
@@ -62,7 +89,7 @@ const router = express.Router();
  *    500:
  *     description: Internal server error
  */
-router.put("/:idUser", userCtrl.updateUser);
+router.put("/:idUser", authMiddle.verifyAuth, userCtrl.updateUser);
 
 /**
  * @swagger
@@ -76,7 +103,7 @@ router.put("/:idUser", userCtrl.updateUser);
  *   - in: path
  *     name: id
  *     schema:
- *      type: integer
+ *      type: string
  *      description: User unique identifier
  *   responses:
  *    201:
@@ -86,6 +113,6 @@ router.put("/:idUser", userCtrl.updateUser);
  *    500:
  *     description: Internal server error
  */
-router.delete("/:idDelete", userCtrl.deleteUser);
+router.delete("/:idDelete", authMiddle.verifyAuth, userCtrl.deleteUser);
 
 module.exports = router;

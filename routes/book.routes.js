@@ -116,6 +116,14 @@ router.get("/", bookCtrl.listBooks);
  *   parameters:
  *    - in: path
  *      name: isbn
+ *   requestBody:
+ *    description: Book object
+ *    content:
+ *     application/json:
+ *      schema:
+ *       $ref: '#/components/schemas/Book'
+ *      example:
+ *       author: John Steinbeck and John Doe
  *   responses:
  *    201:
  *     description: Return the updated book
