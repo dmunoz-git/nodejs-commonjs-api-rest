@@ -21,6 +21,16 @@ module.exports = {
                     url: "http://localhost:3000",
                 },
             ],
+            components: {
+                securitySchemes: {
+                    TokenHeader: {
+                        type: "apiKey",
+                        in: "header",
+                        name: "Authorization",
+                        description: "Authentification token. Add your token directly in the request header.",
+                    },
+                },
+            },
         },
 
         apis: ["./routes/*.js"],

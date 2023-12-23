@@ -47,10 +47,8 @@ const router = express.Router();
  *   tags: [User]
  *   summary: Update user
  *   security:
- *    - bearerAuth: []
+ *    - TokenHeader: []
  *   parameters:
- *    - in: header
- *      name: Authorization
  *    - in: path
  *      name: id
  *      schema:
@@ -73,10 +71,8 @@ router.put("/:idUser", userCtrl.updateUser);
  *   tags: [User]
  *   summary: Delete user
  *   security:
- *    - bearerAuth: []
+ *    - TokenHeader: []
  *   parameters:
- *   - in: header
- *     name: Authorization
  *   - in: path
  *     name: id
  *     schema:
