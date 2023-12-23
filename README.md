@@ -8,3 +8,4 @@ Hi there! This an standard api rest example, still under develop. This API is ma
 -   Book CRUD
 -   Refresh Token Auth method
 -   Integration testing with jest
+-   Swagger doc
